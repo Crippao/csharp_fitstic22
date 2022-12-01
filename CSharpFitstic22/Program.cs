@@ -10,6 +10,7 @@ namespace CSharpFitstic22
 
 
             Console.Write("Che esrcizio vuoi caricare? Inserire numero: ");
+            Console.WriteLine("\n\n");
            
 
             string? temp = Console.ReadLine();
