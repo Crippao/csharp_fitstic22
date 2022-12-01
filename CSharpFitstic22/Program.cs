@@ -6,18 +6,21 @@ namespace CSharpFitstic22
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Che esrcizio vuoi caricare? Inserire numero: ");
-            Console.WriteLine("1. Esercizio 3B");
+            Console.WriteLine("1 per selezionare l'esercizio 3B");
+
+
+            Console.Write("Che esrcizio vuoi caricare? Inserire numero: ");
+           
 
             string? temp = Console.ReadLine();
             int.TryParse(temp, out int e);
 
-            if (e == 1)
+            switch (e)
             {
-                new Exercise().Execute();
+                case 1:
+                    new Exercise().Execute();
+                    break;
             }
-
-
         }
     }
 }

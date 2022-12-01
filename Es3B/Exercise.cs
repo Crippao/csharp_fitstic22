@@ -8,7 +8,8 @@
             bool ok;
 
 
-            Console.Write("Inserisci un numero: ");
+            Console.WriteLine("Hai selezionato l'esercizio 3B! Dato un numero verranno stampati tutti i numeri dispari in ordine decrescente fino allo zero.");
+            Console.Write("Inserire un numero: ");
             tmp = Console.ReadLine();
             ok = int.TryParse(tmp, out int numero);
 
