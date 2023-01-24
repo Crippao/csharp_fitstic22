@@ -9,10 +9,7 @@
 
             numeri = ChiediNumRandom();
 
-            for (int i = 0; i < numeri.Length; i++)
-            {
-                Console.WriteLine($"L'array creato è: {numeri[i]}");
-            }
+            Console.WriteLine($"L'array creato è: {string.Join(", ", numeri)}");
 
             do
             {
@@ -28,11 +25,7 @@
                 }
             } while (!ordered);
 
-            for (int i = 0; i < numeri.Length; i++)
-            {
-
-                Console.WriteLine($"L'array ordinato è: {numeri[i]}");
-            }
+            Console.WriteLine($"L'array ordinato è: {string.Join(", ", numeri)}");
 
         }
 
