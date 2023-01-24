@@ -1,0 +1,15 @@
+C:\Users\crist\source\repos\ordina_array\bin\Debug\net6.0\ordina_array.exe
+C:\Users\crist\source\repos\ordina_array\bin\Debug\net6.0\ordina_array.deps.json
+C:\Users\crist\source\repos\ordina_array\bin\Debug\net6.0\ordina_array.runtimeconfig.json
+C:\Users\crist\source\repos\ordina_array\bin\Debug\net6.0\ordina_array.dll
+C:\Users\crist\source\repos\ordina_array\bin\Debug\net6.0\ordina_array.pdb
+C:\Users\crist\source\repos\ordina_array\obj\Debug\net6.0\ordina_array.csproj.AssemblyReference.cache
+C:\Users\crist\source\repos\ordina_array\obj\Debug\net6.0\ordina_array.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\crist\source\repos\ordina_array\obj\Debug\net6.0\ordina_array.AssemblyInfoInputs.cache
+C:\Users\crist\source\repos\ordina_array\obj\Debug\net6.0\ordina_array.AssemblyInfo.cs
+C:\Users\crist\source\repos\ordina_array\obj\Debug\net6.0\ordina_array.csproj.CoreCompileInputs.cache
+C:\Users\crist\source\repos\ordina_array\obj\Debug\net6.0\ordina_array.dll
+C:\Users\crist\source\repos\ordina_array\obj\Debug\net6.0\refint\ordina_array.dll
+C:\Users\crist\source\repos\ordina_array\obj\Debug\net6.0\ordina_array.pdb
+C:\Users\crist\source\repos\ordina_array\obj\Debug\net6.0\ordina_array.genruntimeconfig.cache
+C:\Users\crist\source\repos\ordina_array\obj\Debug\net6.0\ref\ordina_array.dll
