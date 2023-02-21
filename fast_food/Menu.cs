@@ -16,10 +16,10 @@ namespace fast_food
 
         public Menu() 
         {
-            this.panino = new Panino();
+            this.panino = new Panino(true);
             this.bibita = new Bibita(true);
-            this.patatine = new Patatine();
-            this.salsa= new Salsa();
+            this.patatine = new Patatine(true);
+            this.salsa= new Salsa(true);
            
         }
 
@@ -74,11 +74,11 @@ namespace fast_food
 
         public override string RiepilogoOrdine()
         {
-            string? riepilogo = "";
-            riepilogo += $"{panino.RiepilogoOrdine()}";
-            riepilogo += $"\n\t{bibita.RiepilogoOrdine()}";
-            riepilogo += $"\n\t{patatine.RiepilogoOrdine()}";
-            riepilogo += $"\n\t{salsa.RiepilogoOrdine()}";
+            string? riepilogo = "Hai ordinato un menù con: ";
+            riepilogo += $"\n\t\t{panino.RiepilogoOrdine()}";
+            riepilogo += $"\n\t\t{bibita.RiepilogoOrdine()}";
+            riepilogo += $"\n\t\t{patatine.RiepilogoOrdine()}";
+            riepilogo += $"\n\t\t{salsa.RiepilogoOrdine()}";
 
 
             return riepilogo;

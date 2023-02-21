@@ -9,13 +9,18 @@ namespace fast_food
     internal class Patatine : Articolo
     {
         public string? dimensione;
-
+        public bool inMenu;
         private int numero_patatine;
 
+        public Patatine(bool inMenu)
+        {
+            this.inMenu = inMenu;
+        }
         public Patatine(string? dim = "medium", int n_p = 15)
         {
             this.dimensione = dim;
             this.numero_patatine = n_p;
+            this.inMenu = false;
         }
 
         public override void Ordina()
@@ -78,8 +83,16 @@ namespace fast_food
 
         public override string RiepilogoOrdine()
         {
-            string? riepilogo = "Hai ordinato una ";
-
+            string? riepilogo;
+            if (inMenu == true)
+            {
+                riepilogo = "";
+            }
+            else
+            {
+                riepilogo = "Hai ordinato una ";
+            }
+            
             if (this.dimensione == "small") 
             {
                 riepilogo += "patatina piccola";

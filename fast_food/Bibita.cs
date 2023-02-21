@@ -108,8 +108,6 @@ namespace fast_food
                 riepilogo += "bibita grande";
             }
 
-
-
             return riepilogo;
         }
     }

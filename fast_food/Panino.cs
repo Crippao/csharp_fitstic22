@@ -8,11 +8,17 @@ namespace fast_food
 {
     internal class Panino : Articolo
     {
+        public bool inMenu;
         public bool pane;
         public bool carne;
         public bool formaggio;
         public bool salsa;
         private int numero_morsi;
+
+        public Panino(bool inMenu)
+        {
+            this.inMenu = inMenu;
+        }
 
         public Panino(bool p = true, bool c = true, bool f = true, bool s = true, int n_m = 10)
         {
@@ -21,6 +27,7 @@ namespace fast_food
             this.formaggio = f;
             this.salsa = s;
             this.numero_morsi = n_m;
+            this.inMenu = false;
         }
 
         public override void Ordina()
@@ -130,6 +137,7 @@ namespace fast_food
         public override string RiepilogoOrdine()
         {
             string[] panino = new string[4];
+            string? riepilogo;
 
             if (this.pane == true)
             {
@@ -155,7 +163,15 @@ namespace fast_food
             }
             else { panino[3] = "no salsa"; }
 
-            string? riepilogo = $"Hai ordinato un panino con: {String.Join(", ", panino)}";
+            
+            if (inMenu == true)
+            {
+                riepilogo = $"panino con { String.Join(", ", panino)}";
+            }
+            else
+            {
+                riepilogo = $"Hai ordinato un panino con: {String.Join(", ", panino)}";
+            }           
 
             return riepilogo;
         }

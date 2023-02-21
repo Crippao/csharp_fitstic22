@@ -9,13 +9,19 @@ namespace fast_food
     internal class Salsa : Articolo
     {
         public string? tipo;
+        public bool inMenu;
 
         private int numero_intingoli;
 
+        public Salsa(bool inMenu)
+        {
+            this.inMenu = inMenu;
+        }
         public Salsa(string t = "mayo", int n_i = 15)
         {
             this.tipo = t;
             this.numero_intingoli = n_i;
+            this.inMenu = false;
         }
 
         public int ChiediQuantità()
@@ -103,27 +109,35 @@ namespace fast_food
 
         public override string RiepilogoOrdine()
         {
-            string? riepilogo = "Hai ordinato una salsa ";
+            string? riepilogo;
+            if ( inMenu == true)
+            {
+                riepilogo = "";
+            }else
+            {
+                riepilogo = "Hai ordinato una salsa ";
+            }
+            
 
             if (this.tipo == "maionese")
             {
-                riepilogo += "Maionese";
+                riepilogo += "maionese";
             }
             else if (this.tipo == "ketchup")
             {
-                riepilogo += "Ketchup";
+                riepilogo += "ketchup";
             }
             else if (this.tipo == "bbq")
             {
-                riepilogo += "Bbq";
+                riepilogo += "bbq";
             }
             else if (this.tipo == "agrodolce")
             {
-                riepilogo += "Agrodolce";
+                riepilogo += "agrodolce";
             }
             else if (this.tipo == "senape")
             {
-                riepilogo += "Senape";
+                riepilogo += "senape";
             }
 
             return riepilogo;
