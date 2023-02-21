@@ -1,0 +1,15 @@
+C:\Users\crist\source\repos\fast_food\bin\Debug\net6.0\fast_food.exe
+C:\Users\crist\source\repos\fast_food\bin\Debug\net6.0\fast_food.deps.json
+C:\Users\crist\source\repos\fast_food\bin\Debug\net6.0\fast_food.runtimeconfig.json
+C:\Users\crist\source\repos\fast_food\bin\Debug\net6.0\fast_food.dll
+C:\Users\crist\source\repos\fast_food\bin\Debug\net6.0\fast_food.pdb
+C:\Users\crist\source\repos\fast_food\obj\Debug\net6.0\fast_food.csproj.AssemblyReference.cache
+C:\Users\crist\source\repos\fast_food\obj\Debug\net6.0\fast_food.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\crist\source\repos\fast_food\obj\Debug\net6.0\fast_food.AssemblyInfoInputs.cache
+C:\Users\crist\source\repos\fast_food\obj\Debug\net6.0\fast_food.AssemblyInfo.cs
+C:\Users\crist\source\repos\fast_food\obj\Debug\net6.0\fast_food.csproj.CoreCompileInputs.cache
+C:\Users\crist\source\repos\fast_food\obj\Debug\net6.0\fast_food.dll
+C:\Users\crist\source\repos\fast_food\obj\Debug\net6.0\refint\fast_food.dll
+C:\Users\crist\source\repos\fast_food\obj\Debug\net6.0\fast_food.pdb
+C:\Users\crist\source\repos\fast_food\obj\Debug\net6.0\fast_food.genruntimeconfig.cache
+C:\Users\crist\source\repos\fast_food\obj\Debug\net6.0\ref\fast_food.dll
