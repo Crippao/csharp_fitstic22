@@ -11,9 +11,7 @@
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Benvenuto al CriFoodTruck!!!");
-            Console.ResetColor();
-
-            
+            Console.ResetColor();            
 
             while ( temp != "0")
             {
@@ -23,28 +21,23 @@
                 switch (temp)
                 {
                     case "1":
-                        a = new Menu();                        
-                        //AggiungiMenu();
+                        a = new Menu();
                         break;
 
                     case "2":
                         a = new Panino();
-                        //AggiungiPanino();
                         break;
 
                     case "3":
                         a = new Bibita();
-                        //AggiungiBibita();
                         break;
 
                     case "4":
                         a = new Patatine();
-                        //AggiungiPatatine();
                         break;
 
                     case "5":
                         a = new Salsa();
-                        //AggiungiSalsa();
                         break;
 
                     case "9":
@@ -99,82 +92,10 @@
                 temp = a.ChiediConferma("Vuoi ordinarne un'altro");
             } while (temp);
 
-        }
-
-        static void AggiungiMenu()
-        {
-            Menu menu;
-            bool temp;
-
-            do
-            {
-                menu = new Menu();
-                menu.Ordina();
-                articoloList.Add(menu);
-                temp = menu.ChiediConferma("Vuoi ordinare un'altro menù?");
-            } while (temp);
-        }
-
-        static void AggiungiPanino()
-        {
-            Panino panino;
-            bool temp;
-
-            do
-            {
-                panino = new Panino();
-                panino.Ordina();
-                articoloList.Add(panino);
-                temp = panino.ChiediConferma("Vuoi ordinare un'altro panino?");
-            } while (temp);
-
-        }
-
-        static void AggiungiBibita()
-        {
-            Bibita bibita;
-            bool temp;
-
-            do
-            {
-                bibita = new Bibita();
-                bibita.Ordina();
-                articoloList.Add(bibita);
-                temp = bibita.ChiediConferma("Vuoi ordinare un'altra bibita?");
-            } while (temp);
-        }
-
-        static void AggiungiPatatine()
-        {
-            Patatine patatine;
-            bool temp;
-
-            do
-            {
-                patatine = new Patatine();
-                patatine.Ordina();
-                articoloList.Add(patatine);
-                temp = patatine.ChiediConferma("Vuoi ordinare un'altra porzione di patatine?");
-            } while (temp);
-        }
-
-        static void AggiungiSalsa()
-        {
-            Salsa salsa;
-            bool temp;
-
-            do
-            {
-                salsa = new Salsa();
-                salsa.Ordina();
-                articoloList.Add(salsa);
-                temp = salsa.ChiediConferma("Vuoi ordinare un'altra salsa?");
-            } while (temp);
-        }
+        }        
 
         static void RiepilogoOrdini()
         {
-            //foreground color
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"Hai ordinato {articoloList.Count} prodotti ");
             Console.ResetColor();
@@ -182,43 +103,7 @@
             foreach ( Articolo a in articoloList)
             {
                 Console.WriteLine($"\t{a.RiepilogoOrdine()}");
-            }
-
-            //Console.ForegroundColor = ConsoleColor.Red;
-            //Console.WriteLine($"Hai ordinato {articoloList.Count} panini ");
-            //Console.ResetColor();
-
-            //foreach (Panino p in paninoList)
-            //{
-            //    Console.WriteLine($"\t{p.RiepilogoOrdine()}");
-            //}
-
-            //Console.ForegroundColor = ConsoleColor.Red;
-            //Console.WriteLine($"Hai ordinato {bibitaList.Count} bibite ");
-            //Console.ResetColor();
-
-            //foreach (Bibita b in bibitaList)
-            //{
-            //    Console.WriteLine($"\t{b.RiepilogoOrdine()}");
-            //}
-
-            //Console.ForegroundColor = ConsoleColor.Red;
-            //Console.WriteLine($"Hai ordinato {patatineList.Count} patatine ");
-            //Console.ResetColor();
-
-            //foreach (Patatine p in patatineList)
-            //{
-            //    Console.WriteLine($"\t{p.RiepilogoOrdine()}");
-            //}
-
-            //Console.ForegroundColor = ConsoleColor.Red;
-            //Console.WriteLine($"Hai ordinato {salsaList.Count} salse ");
-            //Console.ResetColor();
-
-            //foreach (Salsa s in salsaList)
-            //{
-            //    Console.WriteLine($"\t{s.RiepilogoOrdine()}");
-            //}
+            }            
         }
 
     }
