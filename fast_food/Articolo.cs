@@ -6,21 +6,13 @@ using System.Threading.Tasks;
 
 namespace fast_food
 {
-    internal class Articolo
+    internal abstract class Articolo
     {
-        public virtual void Ordina() 
-        { 
+        public abstract void Ordina();
+
+        public abstract string RiepilogoOrdine();
+
+        public abstract bool ChiediConferma(string s); 
         
-        }
-
-        public virtual string RiepilogoOrdine() 
-        {
-            return "";
-        }
-
-        public virtual bool ChiediConferma(string s) 
-        {
-            return true;
-        }
     }
 }
