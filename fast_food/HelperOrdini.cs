@@ -51,26 +51,6 @@ namespace fast_food
             sqlite_cmd.CommandText = $"INSERT INTO {nameTable} (Col1, Col2) VALUES('Test Text ', 1); ";
             sqlite_cmd.ExecuteNonQuery();
             
-        }        
-
-        public bool tableAlreadyExists(string tableName)
-        {
-            var sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='" + tableName + "';";
-            if (sqlite_conn.State == System.Data.ConnectionState.Open)
-            {
-                SQLiteCommand command = new SQLiteCommand(sql, sqlite_conn);
-                SQLiteDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    return true;
-                }
-                return false;
-            }
-            else
-            {
-                throw new System.ArgumentException("Data.ConnectionState must be open");
-            }
-        }
-
+        }       
     }
 }
