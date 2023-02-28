@@ -7,7 +7,7 @@ using System.Data.SQLite;
 
 namespace fast_food
 {
-    internal class HelperOrdini
+    internal class HelperSQL
     {       
         SQLiteConnection sqlite_conn;
         string connectionString = "Data Source = fast_food.db; Version = 3; New = True; Compress = True;";

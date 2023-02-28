@@ -3,8 +3,22 @@
     internal class Program
     {
         static List<Articolo> articoloList = new List<Articolo>();
-        
+
         static void Main(string[] args)
+        { 
+            HelperSQL helper = new HelperSQL();
+            
+            if (helper.CreateConnection())
+            {
+                helper.CreateTable();
+                Console.WriteLine("Tabella creata");
+            } else 
+            {
+                Console.WriteLine("Errore di connessione al db");
+            }
+                
+        }
+        static void OldMain(string[] args)
         {
             string? temp = "";
             Articolo a;
