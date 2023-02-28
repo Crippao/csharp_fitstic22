@@ -29,27 +29,57 @@ namespace fast_food
             return true;
         }
 
-        public void CreateTable()
+        public bool EseguiComando(string istruzioni) 
         {
             SQLiteCommand sqlite_cmd;
-            string? createTable = @"CREATE TABLE if not exists Ordine (
-                                    ID    INTEGER,
-                                    DataOra    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                                    PRIMARY KEY(ID AUTOINCREMENT)
-                                    );";
-            
-            sqlite_cmd = sqlite_conn.CreateCommand();            
-            sqlite_cmd.CommandText = createTable;
-            sqlite_cmd.ExecuteNonQuery();
-                      
+
+            if (sqlite_conn.State == System.Data.ConnectionState.Open)
+            {
+                sqlite_cmd = sqlite_conn.CreateCommand();
+                sqlite_cmd.CommandText = istruzioni;
+
+                try
+                {
+                    sqlite_cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Errore: {ex.Message}");
+                    return false;
+                }
+
+                return true;
+            }
+            else { return false; }
         }
 
-        public void InserisciOrdine(string nameTable)
+        public bool CreateTable()
         {
             SQLiteCommand sqlite_cmd;
-            sqlite_cmd = sqlite_conn.CreateCommand();
-            sqlite_cmd.CommandText = $"INSERT INTO {nameTable} (Col1, Col2) VALUES('Test Text ', 1); ";
-            sqlite_cmd.ExecuteNonQuery();
+            string? createTableOrdini = @"CREATE TABLE if not exists Ordine (
+                                        ID    INTEGER,
+                                        DataOra    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                        PRIMARY KEY(ID AUTOINCREMENT)
+                                        );";
+            
+            string? createTableArticoli = @"CREATE TABLE if not exists Articoli (
+                                        ID    INTEGER,
+                                        IdOrdine INTEGER,
+                                        IdMenu INTEGER,                                        
+                                        PRIMARY KEY(ID AUTOINCREMENT),
+                                        FOREIGN KEY (IdOrdine)
+                                            REFERENCES Ordine (ID)
+                                        );";
+
+           return EseguiComando(createTableArticoli);           
+        }
+
+        public bool InserisciOrdine(string nameTable)
+        {
+            SQLiteCommand sqlite_cmd;
+            string? insert = $"INSERT INTO {nameTable} (Col1, Col2) VALUES('Test Text ', 1); ";
+
+            return EseguiComando(insert);
             
         }       
     }
