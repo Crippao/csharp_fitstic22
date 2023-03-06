@@ -37,7 +37,7 @@ namespace fast_food
 
         public Menu() 
         {
-            this.panino = new Panino(true);
+            this.panino = new Panino(inMenu :this);
             this.bibita = new Bibita(true);
             this.patatine = new Patatine(true);
             this.salsa= new Salsa(true);

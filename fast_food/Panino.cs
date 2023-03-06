@@ -8,7 +8,7 @@ namespace fast_food
 {
     internal class Panino : Articolo
     {
-        private bool inMenu;
+        private Menu? inMenu;
         private bool pane;
         private bool carne;
         private bool formaggio;
@@ -38,19 +38,19 @@ namespace fast_food
             get { return salsa; }
             set { salsa = value; }
         }
-        public Panino(bool inMenu)
-        {
-            this.inMenu = inMenu;
-        }
+        //public Panino(bool inMenu)
+        //{
+        //    this.inMenu = inMenu;
+        //}
 
-        public Panino(bool p = true, bool c = true, bool f = true, bool s = true, int n_m = 10)
+        public Panino(bool p = true, bool c = true, bool f = true, bool s = true, int n_m = 10, Menu inMenu = null)
         {
             this.pane = p;
             this.carne = c;
             this.formaggio = f;
             this.salsa = s;
             this.numero_morsi = n_m;
-            this.inMenu = false;
+            this.inMenu = inMenu;
         }
 
         public override void Ordina()

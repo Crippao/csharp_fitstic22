@@ -10,7 +10,7 @@ namespace fast_food
     {
         private DateTime dataOra;
         private int iD;
-        private List<Articolo> articoloList;
+        public List<Articolo> articoloList;
 
         public DateTime DataOra
         {
@@ -24,11 +24,7 @@ namespace fast_food
             set { iD = value; }
         }
 
-        public List<Articolo> ArticoloList 
-        { 
-            get { return articoloList; } 
-            set { articoloList = value; } 
-        }
+        
 
         public Ordine(DateTime d, int id) 
         {
