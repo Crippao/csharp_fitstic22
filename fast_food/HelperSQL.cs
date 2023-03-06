@@ -12,24 +12,7 @@ namespace fast_food
         SQLiteConnection sqlite_conn;
         string connectionString = "Data Source = fast_food.db; Version = 3; New = True; Compress = True;";
 
-        public bool CreateConnection()
-        {            
-            // Create a new database connection:
-            this.sqlite_conn = new SQLiteConnection(connectionString);
-            // Try to open the connection:
-            try
-            {
-                sqlite_conn.Open();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Si è verificata un'eccezione: {ex.Message}");
-                return false;
-            }
-            return true;
-        }
-
-        public bool EseguiComando(string istruzioni) 
+        private bool EseguiNonQuery(string istruzioni)
         {
             SQLiteCommand sqlite_cmd;
 
@@ -53,9 +36,50 @@ namespace fast_food
             else { return false; }
         }
 
-        public bool CreateTable()
+        protected bool EseguiScalare(string istruzioni, out long lastID)
         {
             SQLiteCommand sqlite_cmd;
+            lastID = 0;
+
+            if (sqlite_conn.State == System.Data.ConnectionState.Open)
+            {
+                sqlite_cmd = sqlite_conn.CreateCommand();
+                sqlite_cmd.CommandText = istruzioni;
+
+                try
+                {
+                    object r = sqlite_cmd.ExecuteScalar();
+                    lastID = (long)r;                    
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Errore: {ex.Message}");
+                    return false;
+                }
+
+                return true;
+            }
+            else { return false; }
+        }
+        public bool CreateConnection()
+        {            
+            // Create a new database connection:
+            this.sqlite_conn = new SQLiteConnection(connectionString);
+            // Try to open the connection:
+            try
+            {
+                sqlite_conn.Open();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Si è verificata un'eccezione: {ex.Message}");
+                return false;
+            }
+            return true;
+        }        
+
+        public bool CreateTable()
+        {
             string? createTableOrdini = @"CREATE TABLE if not exists Ordine (
                                         ID    INTEGER,
                                         DataOra    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -71,16 +95,39 @@ namespace fast_food
                                             REFERENCES Ordine (ID)
                                         );";
 
-           return EseguiComando(createTableArticoli);           
+            if (EseguiNonQuery(createTableOrdini))
+            {
+                return EseguiNonQuery(createTableArticoli);
+                
+            } else { return false; }
+                      
         }
 
-        public bool InserisciOrdine(string nameTable)
+        public long InserisciOrdine()
         {
-            SQLiteCommand sqlite_cmd;
-            string? insert = $"INSERT INTO {nameTable} (Col1, Col2) VALUES('Test Text ', 1); ";
+            long id;
+            //RETURNING * = INSERISCE LA RIGA E RESTITUISCE IL VALORE NELLA PRIMA COLONNA
+            string? insertSQL = @"INSERT INTO Ordine (DataOra) 
+                                  VALUES (CURRENT_TIMESTAMP)
+                                  RETURNING *; ";
 
-            return EseguiComando(insert);
+            if (EseguiScalare(insertSQL, out id))
+            {
+                return id;
+            } else
+            {
+                return -1;
+            }
             
-        }       
+            
+        }  
+        
+        public bool CancellaOrdine(int id)
+        {
+            string? deleteAllSQL = "DELETE * FROM Ordine";
+            string? deleteOneSQL = $"DELETE FROM Ordine WHERE ID = {id}";
+
+            return EseguiNonQuery(deleteOneSQL);
+        }
     }
 }

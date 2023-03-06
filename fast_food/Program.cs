@@ -10,13 +10,19 @@
             
             if (helper.CreateConnection())
             {
-                helper.CreateTable();
-                Console.WriteLine("Tabella creata");
+                //helper.CreateTable();
+                //Console.WriteLine("Tabella creata");
+
+                helper.InserisciOrdine();
+                Console.WriteLine("Ordine Inserito");
+
+                helper.CancellaOrdine(2);                
+                Console.WriteLine("Ordine Cancellato");
             } else 
             {
                 Console.WriteLine("Errore di connessione al db");
             }
-                
+                           
         }
         static void OldMain(string[] args)
         {
