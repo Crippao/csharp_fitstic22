@@ -8,11 +8,32 @@ namespace fast_food
 {
     internal class Menu : Articolo
     {
-        public Panino panino;
-        public Bibita bibita;
-        public Patatine patatine;
-        public Salsa salsa;
-        
+        private Panino panino;
+        private Bibita bibita;
+        private Patatine patatine;
+        private Salsa salsa;
+
+        public Panino Panino 
+        {
+            get { return panino; }
+            set { panino = value; }
+        }
+        public Bibita Bibita 
+        {
+            get { return bibita; }
+            set { bibita = value; }
+        }
+        public Patatine Patatine 
+        {
+            get { return patatine; }
+            set { patatine = value; }
+        }
+        public Salsa Salsa 
+        {
+            get { return salsa; }
+            set { salsa = value; }
+        }
+
 
         public Menu() 
         {

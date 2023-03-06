@@ -9,9 +9,15 @@ namespace fast_food
 {
     internal class Bibita : Articolo
     {
-        public string? dimensione;
-        public bool inMenu;
+        private string? dimensione;
+        private bool inMenu;
         private int numero_sorsi;
+
+        public string? Dimensione
+        {
+            get { return dimensione; }
+            set { dimensione = value; }
+        }
 
         public Bibita(bool inMenu)
         {

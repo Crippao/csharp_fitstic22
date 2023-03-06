@@ -8,10 +8,15 @@ namespace fast_food
 {
     internal class Salsa : Articolo
     {
-        public string? tipo;
-        public bool inMenu;
-
+        private string? tipo;
+        private bool inMenu;
         private int numero_intingoli;
+
+        public string? Tipo
+        {
+            get { return tipo; }
+            set { tipo = value;}
+        }
 
         public Salsa(bool inMenu)
         {

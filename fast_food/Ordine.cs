@@ -8,9 +8,27 @@ namespace fast_food
 {
     internal class Ordine
     {
-        public DateTime dataOra;
-        public int iD;
-        public List<Articolo> articoloList;
+        private DateTime dataOra;
+        private int iD;
+        private List<Articolo> articoloList;
+
+        public DateTime DataOra
+        {
+            get { return dataOra; }
+            set { dataOra = value; }
+        }
+
+        public int ID 
+        { 
+            get { return iD; }
+            set { iD = value; }
+        }
+
+        public List<Articolo> ArticoloList 
+        { 
+            get { return articoloList; } 
+            set { articoloList = value; } 
+        }
 
         public Ordine(DateTime d, int id) 
         {
