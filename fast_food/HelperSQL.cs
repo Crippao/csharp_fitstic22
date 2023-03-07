@@ -42,7 +42,11 @@ namespace fast_food
 
                 return true;
             }
-            else { return false; }
+            else
+            {
+                Console.WriteLine("Connessione al db non riuscita");
+                return false;
+            }
         }
 
         protected bool EseguiScalare(string istruzioni, out long lastID)
@@ -68,7 +72,11 @@ namespace fast_food
 
                 return true;
             }
-            else { return false; }
+            else
+            {
+                Console.WriteLine("Connessione al db non riuscita");
+                return false;
+            }
         }
         public bool CreateConnection()
         {            
@@ -133,6 +141,34 @@ namespace fast_food
             string? updateSQL = $"UPDATE Ordine SET DataOra = '{dataStr}' WHERE ID = {id}";
 
             return EseguiNonQuery(updateSQL);
+        }
+
+        protected bool EseguiReader (string istruzioni, out SQLiteDataReader? dbReader)
+        {
+            SQLiteCommand sqlite_cmd;
+            dbReader = null;
+            if (sqlite_conn.State == System.Data.ConnectionState.Open)
+            {
+                sqlite_cmd = sqlite_conn.CreateCommand();
+                sqlite_cmd.CommandText = istruzioni;
+
+                try
+                {
+                    dbReader = sqlite_cmd.ExecuteReader();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Errore: {ex.Message}");
+                    return false;
+                }
+
+                return true;
+            }
+            else 
+            {
+                Console.WriteLine("Connessione al db non riuscita");
+                return false; 
+            }
         }
     }
 }
