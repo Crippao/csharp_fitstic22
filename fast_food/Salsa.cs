@@ -18,15 +18,27 @@ namespace fast_food
             set { tipo = value;}
         }
 
-        public Salsa(bool inMenu)
+        private int Numero_Intingoli
         {
-            this.inMenu = inMenu;
+            get { return numero_intingoli; }
+            set { numero_intingoli = value; }
         }
-        public Salsa(string t = "mayo", int n_i = 15)
+
+        public bool InMenu
+        {
+            get { return inMenu; }
+            set { inMenu = value; }
+        }
+
+        //public Salsa(bool inMenu)
+        //{
+        //    this.inMenu = inMenu;
+        //}
+        public Salsa(string t = "mayo", int n_i = 15, bool inMenu = false)
         {
             this.tipo = t;
             this.numero_intingoli = n_i;
-            this.inMenu = false;
+            this.inMenu = inMenu;
         }
 
         public int ChiediQuantità()

@@ -18,15 +18,25 @@ namespace fast_food
             set { dimensione = value; }
         }
 
-        public Patatine(bool inMenu)
+        private int Numero_Patatine
         {
-            this.inMenu = inMenu;
+            get { return numero_patatine; }
+            set { numero_patatine = value; }
         }
-        public Patatine(string? dim = "medium", int n_p = 15)
+        public bool InMenu
+        {
+            get { return inMenu; }
+            set { inMenu = value; }
+        }
+        //public Patatine(bool inMenu)
+        //{
+        //    this.inMenu = inMenu;
+        //}
+        public Patatine(string? dim = "medium", int n_p = 15, bool inMenu = false)
         {
             this.dimensione = dim;
             this.numero_patatine = n_p;
-            this.inMenu = false;
+            this.inMenu = inMenu;
         }
 
         public override void Ordina()

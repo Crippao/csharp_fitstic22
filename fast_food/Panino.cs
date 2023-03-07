@@ -15,6 +15,12 @@ namespace fast_food
         private bool salsa;
         private int numero_morsi;
 
+        public Menu InMenu
+        {
+            get { return inMenu; }
+            set { inMenu = value; }
+        }
+
         public bool Pane
         {
             get { return pane; }
@@ -37,6 +43,12 @@ namespace fast_food
         {
             get { return salsa; }
             set { salsa = value; }
+        }
+
+        private int Numero_morsi
+        {
+            get { return numero_morsi; }
+            set { numero_morsi = value;}
         }
         //public Panino(bool inMenu)
         //{

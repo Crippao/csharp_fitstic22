@@ -19,16 +19,28 @@ namespace fast_food
             set { dimensione = value; }
         }
 
-        public Bibita(bool inMenu)
+        private int Numero_Sorsi
         {
-            this.inMenu = inMenu;
+            get { return numero_sorsi; }
+            set { numero_sorsi = value; }
         }
 
-        public Bibita(string? dim = "medium", int n_s = 15)
+        public bool InMenu
+        {
+            get { return inMenu; }
+            set { inMenu = value; }
+        }
+
+        //public Bibita(bool inMenu)
+        //{
+        //    this.inMenu = inMenu;
+        //}
+
+        public Bibita(string? dim = "medium", int n_s = 15, bool inMenu = false)
         {
             this.dimensione = dim;
             this.numero_sorsi = n_s;
-            this.inMenu = false;
+            this.inMenu = inMenu;
         }
 
         public override void Ordina()
