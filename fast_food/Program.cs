@@ -18,10 +18,7 @@
                 //Console.WriteLine("Tabella creata");
 
                 comandosql = SceltaComandoSql();
-                if (comandosql != "1")
-                {
-                    ID = SceltaID();
-                }
+                
 
                 switch (comandosql)
                 {
@@ -32,12 +29,14 @@
                         break;
 
                     case "2":
+                        ID = SceltaID();
                         if (helper.ModificaOrdine(DateTime.Now, ID))
                         { Console.WriteLine($"Ordine {ID} modificato"); }
                         else { Console.WriteLine($"Modifica ordine {ID} non riuscita"); };
                         break;
 
                     case "3":
+                        ID = SceltaID();
                         if (helper.CancellaOrdine(ID))
                         { Console.WriteLine($"Ordine {ID} Cancellato"); }
                         else { Console.WriteLine($"Eliminazione ordine {ID} non riuscita"); };
