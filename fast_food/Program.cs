@@ -7,17 +7,27 @@
         static void Main(string[] args)
         { 
             HelperSQL helper = new HelperSQL();
+            long id;
             
             if (helper.CreateConnection())
             {
                 //helper.CreateTable();
                 //Console.WriteLine("Tabella creata");
 
-                helper.InserisciOrdine();
-                Console.WriteLine("Ordine Inserito");
+                if (helper.InserisciOrdine(out id))
+                {
+                    Console.WriteLine($"Ordine {id} Inserito");
+                } else { Console.WriteLine($"Inserimento ordine {id} non riuscito"); }
+                
 
-                helper.CancellaOrdine(2);                
-                Console.WriteLine("Ordine Cancellato");
+                if (helper.ModificaOrdine(7))
+                {
+                    Console.WriteLine("Ordine 7 modificato");
+                } else { Console.WriteLine("Modifica ordine 7 non riuscita"); }
+                
+
+                //helper.CancellaOrdine(3);                
+                //Console.WriteLine("Ordine 3 Cancellato");
             } else 
             {
                 Console.WriteLine("Errore di connessione al db");

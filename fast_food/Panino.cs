@@ -8,14 +8,14 @@ namespace fast_food
 {
     internal class Panino : Articolo
     {
-        private Menu? inMenu;
+        private bool inMenu;
         private bool pane;
         private bool carne;
         private bool formaggio;
         private bool salsa;
         private int numero_morsi;
 
-        public Menu InMenu
+        public bool InMenu
         {
             get { return inMenu; }
             set { inMenu = value; }
@@ -55,7 +55,7 @@ namespace fast_food
         //    this.inMenu = inMenu;
         //}
 
-        public Panino(bool p = true, bool c = true, bool f = true, bool s = true, int n_m = 10, Menu inMenu = null)
+        public Panino(bool p = true, bool c = true, bool f = true, bool s = true, int n_m = 10, bool inMenu = false)
         {
             this.pane = p;
             this.carne = c;

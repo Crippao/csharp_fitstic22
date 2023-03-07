@@ -10,8 +10,13 @@ namespace fast_food
     internal class HelperSQL
     {       
         SQLiteConnection sqlite_conn;
-        string connectionString = "Data Source = fast_food.db; Version = 3; New = True; Compress = True;";
+        string? connectionString = "Data Source = fast_food.db; Version = 3; New = True; Compress = True;";
 
+        public string? ConectionString
+        {
+            get { return connectionString; } 
+            private set { connectionString = value;}
+        }
         private bool EseguiNonQuery(string istruzioni)
         {
             SQLiteCommand sqlite_cmd;
@@ -39,7 +44,7 @@ namespace fast_food
         protected bool EseguiScalare(string istruzioni, out long lastID)
         {
             SQLiteCommand sqlite_cmd;
-            lastID = 0;
+            lastID = -1;
 
             if (sqlite_conn.State == System.Data.ConnectionState.Open)
             {
@@ -47,9 +52,8 @@ namespace fast_food
                 sqlite_cmd.CommandText = istruzioni;
 
                 try
-                {
-                    object r = sqlite_cmd.ExecuteScalar();
-                    lastID = (long)r;                    
+                {                    
+                    lastID = (long)sqlite_cmd.ExecuteScalar();                    
                 }
                 catch (Exception ex)
                 {
@@ -103,21 +107,15 @@ namespace fast_food
                       
         }
 
-        public long InserisciOrdine()
-        {
-            long id;
+        public bool InserisciOrdine(out long id)
+        {            
             //RETURNING * = INSERISCE LA RIGA E RESTITUISCE IL VALORE NELLA PRIMA COLONNA
             string? insertSQL = @"INSERT INTO Ordine (DataOra) 
                                   VALUES (CURRENT_TIMESTAMP)
                                   RETURNING *; ";
 
-            if (EseguiScalare(insertSQL, out id))
-            {
-                return id;
-            } else
-            {
-                return -1;
-            }
+            return EseguiScalare(insertSQL, out id);
+            
             
             
         }  
@@ -128,6 +126,14 @@ namespace fast_food
             string? deleteOneSQL = $"DELETE FROM Ordine WHERE ID = {id}";
 
             return EseguiNonQuery(deleteOneSQL);
+        }
+
+        public bool ModificaOrdine(int id)
+        {
+            
+            string? updateSQL = $"UPDATE Ordine SET DataOra = CURRENT_TIMESTAMP WHERE ID = {id}";
+
+            return EseguiNonQuery(updateSQL);
         }
     }
 }
