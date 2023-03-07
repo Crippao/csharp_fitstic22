@@ -30,7 +30,7 @@ namespace fast_food
                 {
                     if (sqlite_cmd.ExecuteNonQuery() == 0)
                     {
-                        Console.WriteLine("Modifica/Eliminazione non riuscita");
+                        Console.WriteLine("Sono state modificate/eliminate 0 righe");
                         return false;
                     }
                 }
