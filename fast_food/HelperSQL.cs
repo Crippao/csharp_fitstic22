@@ -28,7 +28,11 @@ namespace fast_food
 
                 try
                 {
-                    sqlite_cmd.ExecuteNonQuery();
+                    if (sqlite_cmd.ExecuteNonQuery() == 0)
+                    {
+                        Console.WriteLine("Modifica/Eliminazione non riuscita");
+                        return false;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -52,8 +56,9 @@ namespace fast_food
                 sqlite_cmd.CommandText = istruzioni;
 
                 try
-                {                    
-                    lastID = (long)sqlite_cmd.ExecuteScalar();                    
+                {
+                    object r = sqlite_cmd.ExecuteScalar();
+                    lastID = (long)r;                    
                 }
                 catch (Exception ex)
                 {
@@ -105,33 +110,27 @@ namespace fast_food
                 
             } else { return false; }
                       
-        }
+        }        
 
-        public bool InserisciOrdine(out long id)
-        {            
-            //RETURNING * = INSERISCE LA RIGA E RESTITUISCE IL VALORE NELLA PRIMA COLONNA
-            string? insertSQL = @"INSERT INTO Ordine (DataOra) 
-                                  VALUES (CURRENT_TIMESTAMP)
-                                  RETURNING *; ";
+        public bool InserisciOrdine(DateTime dataOra, out long id)
+        {
+            string dataStr = dataOra.ToString("yyy-MM-dd HH:mm:ss");
+            string? insertSQL = $"INSERT INTO Ordine (DataOra) VALUES ('{dataStr}') RETURNING *; ";
 
             return EseguiScalare(insertSQL, out id);
-            
-            
-            
-        }  
-        
+        }
+
         public bool CancellaOrdine(int id)
-        {
-            string? deleteAllSQL = "DELETE * FROM Ordine";
+        {            
             string? deleteOneSQL = $"DELETE FROM Ordine WHERE ID = {id}";
 
             return EseguiNonQuery(deleteOneSQL);
         }
 
-        public bool ModificaOrdine(int id)
+        public bool ModificaOrdine(DateTime dataOra, int id)
         {
-            
-            string? updateSQL = $"UPDATE Ordine SET DataOra = CURRENT_TIMESTAMP WHERE ID = {id}";
+            string dataStr = dataOra.ToString("yyy-MM-dd HH:mm:ss");
+            string? updateSQL = $"UPDATE Ordine SET DataOra = '{dataStr}' WHERE ID = {id}";
 
             return EseguiNonQuery(updateSQL);
         }

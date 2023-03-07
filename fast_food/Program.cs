@@ -5,34 +5,79 @@
         static List<Articolo> articoloList = new List<Articolo>();
 
         static void Main(string[] args)
-        { 
+        {
             HelperSQL helper = new HelperSQL();
-            long id;
-            
+            long idIns;
+
             if (helper.CreateConnection())
             {
+                string? comandosql;
+                int ID;
+
                 //helper.CreateTable();
                 //Console.WriteLine("Tabella creata");
 
-                if (helper.InserisciOrdine(out id))
+                comandosql = SceltaComandoSql();
+                if (comandosql != "1")
                 {
-                    Console.WriteLine($"Ordine {id} Inserito");
-                } else { Console.WriteLine($"Inserimento ordine {id} non riuscito"); }
-                
+                    ID = SceltaID();
+                }
 
-                if (helper.ModificaOrdine(7))
+                switch (comandosql)
                 {
-                    Console.WriteLine("Ordine 7 modificato");
-                } else { Console.WriteLine("Modifica ordine 7 non riuscita"); }
-                
+                    case "1":
+                        if (helper.InserisciOrdine(DateTime.Now, out idIns))
+                        { Console.WriteLine($"Ordine {idIns} Inserito"); }
+                        else { Console.WriteLine($"Inserimento ordine {idIns} non riuscito"); };
+                        break;
 
-                //helper.CancellaOrdine(3);                
-                //Console.WriteLine("Ordine 3 Cancellato");
-            } else 
+                    case "2":
+                        if (helper.ModificaOrdine(DateTime.Now, ID))
+                        { Console.WriteLine($"Ordine {ID} modificato"); }
+                        else { Console.WriteLine($"Modifica ordine {ID} non riuscita"); };
+                        break;
+
+                    case "3":
+                        if (helper.CancellaOrdine(ID))
+                        { Console.WriteLine($"Ordine {ID} Cancellato"); }
+                        else { Console.WriteLine($"Eliminazione ordine {ID} non riuscita"); };
+                        break;
+                }
+            }
+            else
             {
                 Console.WriteLine("Errore di connessione al db");
             }
-                           
+
+        }
+
+        static string SceltaComandoSql()
+        {
+            string? temp;
+
+            do
+            {
+                Console.WriteLine("Vuoi inserire, modificare o cancellare un ordine?");
+                Console.WriteLine("1) Per inserire un nuovo ordine");
+                Console.WriteLine("2) Per modificare un ordine esistente");
+                Console.WriteLine("3) Per eliminare un ordine esistente");
+                temp = Console.ReadLine();
+
+            } while (!int.TryParse(temp, out int v) || (temp == "1" && temp == "2" && temp == "3"));
+
+            return temp;
+        }
+
+        static int SceltaID()
+        {
+            int ID;
+            do
+            {
+                Console.WriteLine("Inserire l'id dell'ordine interessato: ");
+
+            } while (!int.TryParse(Console.ReadLine(), out ID));
+
+            return ID;
         }
         static void OldMain(string[] args)
         {
@@ -41,9 +86,9 @@
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Benvenuto al CriFoodTruck!!!");
-            Console.ResetColor();            
+            Console.ResetColor();
 
-            while ( temp != "0")
+            while (temp != "0")
             {
                 temp = Scelta();
 
@@ -116,13 +161,13 @@
             bool temp;
 
             do
-            {                
+            {
                 a.Ordina();
                 articoloList.Add(a);
                 temp = a.ChiediConferma("Vuoi ordinarne un'altro");
             } while (temp);
 
-        }        
+        }
 
         static void RiepilogoOrdini()
         {
@@ -130,10 +175,10 @@
             Console.WriteLine($"Hai ordinato {articoloList.Count} prodotti ");
             Console.ResetColor();
 
-            foreach ( Articolo a in articoloList)
+            foreach (Articolo a in articoloList)
             {
                 Console.WriteLine($"\t{a.RiepilogoOrdine()}");
-            }            
+            }
         }
 
     }
