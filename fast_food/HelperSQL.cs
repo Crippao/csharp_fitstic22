@@ -4,20 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using Microsoft.VisualBasic;
+using System.Reflection.PortableExecutable;
 
 namespace fast_food
 {
     internal class HelperSQL
-    {       
+    {
         SQLiteConnection sqlite_conn;
         string? connectionString = "Data Source = fast_food.db; Version = 3; New = True; Compress = True;";
 
         public string? ConectionString
         {
-            get { return connectionString; } 
-            private set { connectionString = value;}
+            get { return connectionString; }
+            private set { connectionString = value; }
         }
-        private bool EseguiNonQuery(string istruzioni)
+        protected bool EseguiNonQuery(string istruzioni)
         {
             SQLiteCommand sqlite_cmd;
 
@@ -62,7 +64,7 @@ namespace fast_food
                 try
                 {
                     object r = sqlite_cmd.ExecuteScalar();
-                    lastID = (long)r;                    
+                    lastID = (long)r;
                 }
                 catch (Exception ex)
                 {
@@ -79,7 +81,7 @@ namespace fast_food
             }
         }
         public bool CreateConnection()
-        {            
+        {
             // Create a new database connection:
             this.sqlite_conn = new SQLiteConnection(connectionString);
             // Try to open the connection:
@@ -93,7 +95,7 @@ namespace fast_food
                 return false;
             }
             return true;
-        }        
+        }
 
         public bool CreateTable()
         {
@@ -102,7 +104,7 @@ namespace fast_food
                                         DataOra    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                         PRIMARY KEY(ID AUTOINCREMENT)
                                         );";
-            
+
             string? createTableArticoli = @"CREATE TABLE if not exists Articoli (
                                         ID    INTEGER,
                                         IdOrdine INTEGER,
@@ -115,10 +117,11 @@ namespace fast_food
             if (EseguiNonQuery(createTableOrdini))
             {
                 return EseguiNonQuery(createTableArticoli);
-                
-            } else { return false; }
-                      
-        }        
+
+            }
+            else { return false; }
+
+        }
 
         public bool InserisciOrdine(DateTime dataOra, out long id)
         {
@@ -129,7 +132,7 @@ namespace fast_food
         }
 
         public bool CancellaOrdine(int id)
-        {            
+        {
             string? deleteOneSQL = $"DELETE FROM Ordine WHERE ID = {id}";
 
             return EseguiNonQuery(deleteOneSQL);
@@ -143,7 +146,7 @@ namespace fast_food
             return EseguiNonQuery(updateSQL);
         }
 
-        protected bool EseguiReader (string istruzioni, out SQLiteDataReader? dbReader)
+        protected bool EseguiReader(string istruzioni, out SQLiteDataReader? dbReader)
         {
             SQLiteCommand sqlite_cmd;
             dbReader = null;
@@ -164,11 +167,61 @@ namespace fast_food
 
                 return true;
             }
-            else 
+            else
             {
                 Console.WriteLine("Connessione al db non riuscita");
-                return false; 
+                return false;
             }
+        }
+
+        public Ordine? GetOrdine(long id)
+        {
+            string selectSql = $"SELECT * FROM Ordine WHERE id = {id};";
+
+            SQLiteDataReader? reader;
+
+            if (EseguiReader(selectSql, out reader))
+            {
+                if (EseguiReader(selectSql, out reader))
+                {
+                    if (reader == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                long idQUERY = reader.GetInt64(0);
+
+                                DateTime dt;
+                                if (DateTime.TryParse(reader.GetString(1), out dt))
+                                {
+                                    return new Ordine(idQUERY, dt);
+                                }
+                                else
+                                {
+                                    return null;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                    return null;
+                }
+                else
+                {
+                    return null;
+                }
+
+
+            }
+            else { return null; }
         }
     }
 }

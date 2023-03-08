@@ -9,7 +9,7 @@ namespace fast_food
     internal class Ordine
     {
         private DateTime dataOra;
-        private int iD;
+        private long iD;
         public List<Articolo> articoloList;
 
         public DateTime DataOra
@@ -18,7 +18,7 @@ namespace fast_food
             set { dataOra = value; }
         }
 
-        public int ID 
+        public long ID 
         { 
             get { return iD; }
             set { iD = value; }
@@ -26,7 +26,7 @@ namespace fast_food
 
         
 
-        public Ordine(DateTime d, int id) 
+        public Ordine(long id, DateTime d) 
         {
             this.dataOra = d;
             this.iD = id;

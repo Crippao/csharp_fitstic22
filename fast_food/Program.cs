@@ -41,6 +41,14 @@
                         { Console.WriteLine($"Ordine {ID} Cancellato"); }
                         else { Console.WriteLine($"Eliminazione ordine {ID} non riuscita"); };
                         break;
+
+                    case "4":
+                        long iD = SceltaID();
+                        Ordine o = helper.GetOrdine(iD);                        
+                        if (o != null) { Console.WriteLine($"L'ordine {o.ID} è stato creato in data {o.DataOra}"); }
+                        else { Console.WriteLine("Ordine non trovato"); };
+                        break;
+
                 }
             }
             else
@@ -60,9 +68,10 @@
                 Console.WriteLine("1) Per inserire un nuovo ordine");
                 Console.WriteLine("2) Per modificare un ordine esistente");
                 Console.WriteLine("3) Per eliminare un ordine esistente");
+                Console.WriteLine("4) Per consultare un ordine esistente");
                 temp = Console.ReadLine();
 
-            } while (!int.TryParse(temp, out int v) || (temp == "1" && temp == "2" && temp == "3"));
+            } while (!int.TryParse(temp, out int v) || (temp == "1" && temp == "2" && temp == "3" && temp == "4"));
 
             return temp;
         }
