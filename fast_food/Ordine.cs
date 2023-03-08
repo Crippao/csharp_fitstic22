@@ -9,7 +9,7 @@ namespace fast_food
     internal class Ordine
     {
         private DateTime dataOra;
-        private long iD;
+        private long id;
         public List<Articolo> articoloList;
 
         public DateTime DataOra
@@ -20,16 +20,20 @@ namespace fast_food
 
         public long ID 
         { 
-            get { return iD; }
-            set { iD = value; }
-        }
-
-        
+            get { return id; }
+            set { id = value; }
+        }        
 
         public Ordine(long id, DateTime d) 
         {
             this.dataOra = d;
-            this.iD = id;
+            this.id = id;
+        }
+
+        public override string ToString()
+        {
+            string? ordine = $"L'ordine {id} è stato creato in data {dataOra}";
+            return ordine;
         }
 
     }

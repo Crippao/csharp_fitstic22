@@ -223,5 +223,37 @@ namespace fast_food
             }
             else { return null; }
         }
+
+        public List<Ordine> ListOrdini()
+        {
+            List<Ordine> listaOrdini = new List<Ordine>();
+
+            string selectSql = $"SELECT * FROM Ordine;";
+
+            SQLiteDataReader? reader;
+
+            if (EseguiReader(selectSql, out reader))
+            {
+                if (reader != null)
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            long idQUERY = reader.GetInt64(0);
+
+                            DateTime dt;
+                            if (DateTime.TryParse(reader.GetString(1), out dt))
+                            {
+                                listaOrdini.Add(new Ordine(idQUERY, dt));
+                            }
+                        }
+                    }
+
+                }
+
+            }
+            return listaOrdini;
+        }
     }
 }
