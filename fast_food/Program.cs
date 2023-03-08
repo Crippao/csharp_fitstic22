@@ -46,7 +46,7 @@
                         long iD = SceltaID();
                         Ordine o = helper.GetOrdine(iD);                        
                         if (o != null) { Console.WriteLine($"L'ordine {o.ID} è stato creato in data {o.DataOra}"); }
-                        else { Console.WriteLine("Ordine non trovato"); };
+                        else { Console.WriteLine($"Ordine {iD} non trovato"); };
                         break;
 
                 }
