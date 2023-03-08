@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,6 +48,46 @@ namespace fast_food
                 Console.WriteLine("Connessione al db non riuscita");
                 return false;
             }
+        }
+
+
+        protected IEnumerable<T>? ExecuteQuery<T>(string table, Func<IDataReader, T> projection /* Magia nera lascia perdere per ora*/) {
+            //FIXME: We're vulnerable to SQLInjections
+            if (sqlite_conn.State != ConnectionState.Open) {
+                yield break;
+            }
+
+            SQLiteCommand cmd = sqlite_conn.CreateCommand();
+            cmd.CommandText = @$"select * from ${table}";
+
+            SQLiteDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read()) {
+                // altra magia nera lascia stare
+                yield return projection(dr);
+            }
+
+        }
+
+
+        public List<Ordine> GetAllOrders() {
+
+            var l = new List<Ordine>();
+            if (sqlite_conn.State != ConnectionState.Open) {
+                return l;
+            }
+
+            SQLiteCommand cmd = sqlite_conn.CreateCommand();
+            cmd.CommandText = @$"select * from Ordine";
+
+            SQLiteDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read()) {
+                l.Add(new Ordine(dr.GetDateTime("DataOra"), dr.GetInt32("ID")));
+            }
+
+            return l;
+
         }
 
         protected bool EseguiScalare(string istruzioni, out long lastID)

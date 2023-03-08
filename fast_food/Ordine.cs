@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace fast_food
 {
-    internal class Ordine
+    public class Ordine
     {
         private DateTime dataOra;
         private int iD;

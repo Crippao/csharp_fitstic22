@@ -18,7 +18,6 @@ public class OrderController : ControllerBase
         return Problem("Cannot create the resource");
     }
 
-
     [HttpDelete, Route("/delete/{id:int}")]
     public IActionResult DeleteOrder(int id) {
         if (_helperSql.CancellaOrdine(id)) {
@@ -37,7 +36,26 @@ public class OrderController : ControllerBase
         return Problem("Cannot complete the request");
     }
 
+    [HttpPost, Route("/initialize")]
+    public IActionResult Initialize() {
+        if (_helperSql.CreateTable()) {
+            return Ok();
+        }
+
+
+        return Problem("There was an error managing your request");
+    }
+
+    [HttpGet, Route("/")]
+    public IActionResult Get() {
+        var data = _helperSql.GetAllOrders();
+
+        return Ok(data);
+    }
+
+
     public OrderController() {
         _helperSql = new HelperSQL();
+        _helperSql.CreateConnection();
     }
 }
