@@ -1215,19 +1215,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\crist\\.nuget\\packages\\": {}
+    "C:\\Users\\sebastiano.gaudeano\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\crist\\source\\gitHub\\fast_food\\fast_food.csproj",
+      "projectUniqueName": "C:\\projects\\personal\\dot_net\\csharp_fitstic22\\fast_food\\fast_food.csproj",
       "projectName": "fast_food",
-      "projectPath": "C:\\Users\\crist\\source\\gitHub\\fast_food\\fast_food.csproj",
-      "packagesPath": "C:\\Users\\crist\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\crist\\source\\gitHub\\fast_food\\obj\\",
+      "projectPath": "C:\\projects\\personal\\dot_net\\csharp_fitstic22\\fast_food\\fast_food.csproj",
+      "packagesPath": "C:\\Users\\sebastiano.gaudeano\\.nuget\\packages\\",
+      "outputPath": "C:\\projects\\personal\\dot_net\\csharp_fitstic22\\fast_food\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\crist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\sebastiano.gaudeano\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1235,7 +1235,9 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.telerik.com/nuget": {},
+        "https://nuget.vem.com/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
@@ -1269,12 +1271,30 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.14, 6.0.14]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[6.0.14, 6.0.14]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.14, 6.0.14]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[6.0.14, 6.0.14]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
