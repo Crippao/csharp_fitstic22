@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace fast_food
 {
-    internal abstract class Articolo
+    public abstract class Articolo
     {
         public abstract void Ordina();
 
