@@ -273,7 +273,7 @@ namespace fast_food
             else { return null; }
         }
 
-        public List<Ordine> ListOrdini()
+        public IEnumerable<Ordine> ListOrdini()
         {
             List<Ordine> listaOrdini = new List<Ordine>();
 
@@ -294,7 +294,8 @@ namespace fast_food
                             DateTime dt;
                             if (DateTime.TryParse(reader.GetString(1), out dt))
                             {
-                                listaOrdini.Add(new Ordine(idQUERY, dt));
+                                //listaOrdini.Add(new Ordine(idQUERY, dt));
+                                yield return new Ordine(idQUERY, dt);
                             }
                         }
                     }
@@ -302,7 +303,7 @@ namespace fast_food
                 }
 
             }
-            return listaOrdini;
+            //return listaOrdini;
         }
     }
 }

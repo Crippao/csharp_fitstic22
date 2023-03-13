@@ -50,7 +50,7 @@
                         break;
 
                     case "5":
-                        List<Ordine> listaOrdini = helper.ListOrdini();
+                        List<Ordine> listaOrdini = helper.ListOrdini().ToList();
                         foreach (Ordine ordine in listaOrdini)
                         {
                             Console.WriteLine(ordine);
