@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\crist\\source\\gitHub\\fast_food\\fast_food.csproj": {}
+    "C:\\Users\\crist\\source\\csharp_fitstic22\\fast_food\\fast_food.csproj": {}
   },
   "projects": {
-    "C:\\Users\\crist\\source\\gitHub\\fast_food\\fast_food.csproj": {
+    "C:\\Users\\crist\\source\\csharp_fitstic22\\fast_food\\fast_food.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\crist\\source\\gitHub\\fast_food\\fast_food.csproj",
+        "projectUniqueName": "C:\\Users\\crist\\source\\csharp_fitstic22\\fast_food\\fast_food.csproj",
         "projectName": "fast_food",
-        "projectPath": "C:\\Users\\crist\\source\\gitHub\\fast_food\\fast_food.csproj",
+        "projectPath": "C:\\Users\\crist\\source\\csharp_fitstic22\\fast_food\\fast_food.csproj",
         "packagesPath": "C:\\Users\\crist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\crist\\source\\gitHub\\fast_food\\obj\\",
+        "outputPath": "C:\\Users\\crist\\source\\csharp_fitstic22\\fast_food\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\crist\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -61,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

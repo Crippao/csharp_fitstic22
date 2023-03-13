@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GQgxqPIvSft2BtQyp6E6IhRHcPE4WbCrT5EpQb7CaX+bgzhiVueh4MeJvE+86I6Mn9R8qZdF+JT6pbNtaVFMOw==",
+  "dgSpecHash": "hjUmG6Cuy3tKJiXFwOAFQHnIKfu1BS+x0Jli38mjfBYA2VY5JqYyMoSPUDVU/p50XtPL1jYgKyPRJyWuVO8dIw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\crist\\source\\gitHub\\fast_food\\fast_food.csproj",
+  "projectFilePath": "C:\\Users\\crist\\source\\csharp_fitstic22\\fast_food\\fast_food.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\crist\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\crist\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

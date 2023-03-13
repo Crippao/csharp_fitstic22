@@ -10,7 +10,12 @@ namespace fast_food
     {
         private DateTime dataOra;
         private long id;
-        public List<Articolo> articoloList;
+        private List<Articolo> _articoloList;
+
+        public void AddArticolo(Articolo articolo)
+        {
+            _articoloList.Add(articolo);
+        }
 
         public DateTime DataOra
         {
@@ -18,22 +23,44 @@ namespace fast_food
             set { dataOra = value; }
         }
 
-        public long ID 
-        { 
+        public long ID
+        {
             get { return id; }
             set { id = value; }
-        }        
+        }
 
-        public Ordine(long id, DateTime d) 
+        public Ordine(long id = 0, DateTime? d = null)
         {
-            this.dataOra = d;
+            this.dataOra = d ?? DateTime.Now;
             this.id = id;
+            _articoloList = new List<Articolo>();
         }
 
         public override string ToString()
         {
             string? ordine = $"L'ordine {id} è stato creato in data {dataOra}";
             return ordine;
+        }
+
+        public void RiepilogoOrdini()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Hai ordinato {_articoloList.Count} prodotti ");
+            Console.ResetColor();
+
+            foreach (Articolo a in _articoloList)
+            {
+                Console.WriteLine($"\t{a.RiepilogoOrdine()}");
+            }
+        }
+
+        public Ordine AggiungiArticolo(Articolo a)
+        {
+            
+            a.Ordina();
+            this.AddArticolo(a);
+
+            return this;
         }
 
     }

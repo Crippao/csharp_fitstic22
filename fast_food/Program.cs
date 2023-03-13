@@ -1,4 +1,6 @@
-﻿namespace fast_food
+﻿using System.Text;
+
+namespace fast_food
 {
     internal class Program
     {
@@ -6,66 +8,94 @@
 
         static void Main(string[] args)
         {
-            HelperSQL helper = new HelperSQL();
+            Helper helper = new Helper();
+            HelperPatatine helperPata = new HelperPatatine();
+            HelperOrdine helperOrdine = new HelperOrdine();
             long idIns;
 
-            if (helper.CreateConnection())
-            {
-                string? comandosql;
-                int ID;
+            helper.CreateConnection();
 
-                //helper.CreateTable();
-                //Console.WriteLine("Tabella creata");
-
-                comandosql = SceltaComandoSql();
+            Ordina();
 
 
-                switch (comandosql)
-                {
-                    case "1":
-                        if (helper.InserisciOrdine(DateTime.Now, out idIns))
-                        { Console.WriteLine($"Ordine {idIns} Inserito"); }
-                        else { Console.WriteLine($"Inserimento ordine {idIns} non riuscito"); };
-                        break;
 
-                    case "2":
-                        ID = SceltaID();
-                        if (helper.ModificaOrdine(DateTime.Now, ID))
-                        { Console.WriteLine($"Ordine {ID} modificato"); }
-                        else { Console.WriteLine($"Modifica ordine {ID} non riuscita"); };
-                        break;
+            //if (helper.CreateConnection())
+            //{
+            //    string? comandosql;
+            //    int ID;                
 
-                    case "3":
-                        ID = SceltaID();
-                        if (helper.CancellaOrdine(ID))
-                        { Console.WriteLine($"Ordine {ID} Cancellato"); }
-                        else { Console.WriteLine($"Eliminazione ordine {ID} non riuscita"); };
-                        break;
+            //helper.CreateTable();
+            //Console.WriteLine("Tabella creata");
 
-                    case "4":
-                        long id = SceltaID();
-                        Ordine? o = helper.GetOrdine(id);
-                        if (o != null) { Console.WriteLine(o); }
-                        else { Console.WriteLine($"Ordine {id} non trovato"); };
-                        break;
+            //comandosql = SceltaComandoOrdine();
 
-                    case "5":
-                        List<Ordine> listaOrdini = helper.ListOrdini();
-                        foreach (Ordine ordine in listaOrdini)
-                        {
-                            Console.WriteLine(ordine);
-                        }
-                        break;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Errore di connessione al db");
-            }
+            //switch (comandosql)
+            //{
+            //    case "1":
+            //        if (helperOrdine.Insert(DateTime.Now, out idIns))
+            //        { Console.WriteLine($"Ordine {idIns} Inserito"); }
+            //        else { Console.WriteLine($"Inserimento ordine {idIns} non riuscito"); };
+            //        break;
+
+            //    case "2":
+            //        ID = SceltaID();
+            //        if (helperOrdine.Update(DateTime.Now, ID))
+            //        { Console.WriteLine($"Ordine {ID} modificato"); }
+            //        else { Console.WriteLine($"Modifica ordine {ID} non riuscita"); };
+            //        break;
+
+            //    case "3":
+            //        ID = SceltaID();
+            //        if (helperOrdine.Delete(ID))
+            //        { Console.WriteLine($"Ordine {ID} Cancellato"); }
+            //        else { Console.WriteLine($"Eliminazione ordine {ID} non riuscita"); };
+            //        break;
+
+            //    case "4":
+            //        long id = SceltaID();
+            //        Ordine? o = helperOrdine.Get(id);
+            //        if (o != null) { Console.WriteLine(o); }
+            //        else { Console.WriteLine($"Ordine {id} non trovato"); };
+            //        break;
+
+            //    case "5":
+            //        List<Ordine> listaOrdini = helperOrdine.GetAll();
+            //        foreach (Ordine ordine in listaOrdini)
+            //        {
+            //            Console.WriteLine(ordine);
+            //        }
+            //        break;
+            //    }
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Errore di connessione al db");
+            //}
+
+
 
         }
 
-        static string SceltaComandoSql()
+        static string SceltaComandoPatatine()
+        {
+            string? temp;
+
+            do
+            {
+                Console.WriteLine("Vuoi inserire, modificare o cancellare una patatina?");
+                Console.WriteLine("1) Per inserire un nuova patatina");
+                Console.WriteLine("2) Per modificare una patatina esistente");
+                Console.WriteLine("3) Per eliminare una patatina esistente");
+                Console.WriteLine("4) Per consultare una patatina esistente");
+                Console.WriteLine("5) Per consultare tutti le patatine esistenti");
+                temp = Console.ReadLine();
+
+            } while (!int.TryParse(temp, out int v) || (temp == "1" && temp == "2" && temp == "3" && temp == "4" && temp == "5"));
+
+            return temp;
+        }
+
+        static string SceltaComandoOrdine()
         {
             string? temp;
 
@@ -96,10 +126,12 @@
             return ID;
         }
 
-        static void OldMain(string[] args)
+        static Ordine Ordina()
         {
             string? temp = "";
+            bool temp1;
             Articolo a;
+            Ordine ordine = new Ordine();
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Benvenuto al CriFoodTruck!!!");
@@ -133,23 +165,33 @@
                         break;
 
                     case "9":
-                        RiepilogoOrdini();
+                        ordine.RiepilogoOrdini();
                         continue;
 
                     case "0":
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("Grazie per aver ordinato da noi! Arrivederci :D");
                         Console.ResetColor();
-                        return;
+                        return ordine;
 
                     default:
                         throw new Exception($"Valore {temp} inserito non corretto");
                 }
 
-                AggiungiArticolo(a);
 
-            }
+                do
+                {
+                    ordine.AggiungiArticolo(a);
+                    temp1 = a.ChiediConferma("Vuoi ordinarne un'altro");
+                } while (temp1);
+
+
+
+
+            } return ordine;
         }
+
+
 
         static string Scelta()
         {
@@ -173,30 +215,9 @@
             return temp;
         }
 
-        static void AggiungiArticolo(Articolo a)
-        {
-            bool temp;
+        
 
-            do
-            {
-                a.Ordina();
-                articoloList.Add(a);
-                temp = a.ChiediConferma("Vuoi ordinarne un'altro");
-            } while (temp);
-
-        }
-
-        static void RiepilogoOrdini()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Hai ordinato {articoloList.Count} prodotti ");
-            Console.ResetColor();
-
-            foreach (Articolo a in articoloList)
-            {
-                Console.WriteLine($"\t{a.RiepilogoOrdine()}");
-            }
-        }
+        
 
     }
 }

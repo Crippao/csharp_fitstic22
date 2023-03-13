@@ -8,9 +8,15 @@ namespace fast_food
 {
     internal class Patatine : Articolo
     {
+        private long id;
+        private long id_ordine;
         private string? dimensione;
         private bool inMenu;
         private int numero_patatine;
+
+        public long Id { get; set; }
+
+        public long Id_ordine { get; set; }
 
         public string? Dimensione
         {
@@ -18,24 +24,22 @@ namespace fast_food
             set { dimensione = value; }
         }
 
-        private int Numero_Patatine
+        public int Numero_Patatine
         {
             get { return numero_patatine; }
-            set { numero_patatine = value; }
         }
         public bool InMenu
         {
             get { return inMenu; }
             set { inMenu = value; }
         }
-        //public Patatine(bool inMenu)
-        //{
-        //    this.inMenu = inMenu;
-        //}
-        public Patatine(string? dim = "medium", int n_p = 15, bool inMenu = false)
+        
+        public Patatine(long id = 0, string? dim = "medium", int n_p = 15, long id_ordine = 0, bool inMenu = false)
         {
+            this.id = id;         
             this.dimensione = dim;
             this.numero_patatine = n_p;
+            this.id_ordine = id_ordine;
             this.inMenu = inMenu;
         }
 
@@ -58,16 +62,19 @@ namespace fast_food
             switch (dim)
             {
                 case "s":
+                    //this.id++;
                     this.dimensione = "small";
                     this.numero_patatine = 10;                    
                     break;
 
                 case "m":
+                    //this.id++;
                     this.dimensione = "medium";
                     this.numero_patatine = 15;
                     break;
 
                 case "l":
+                    //this.id++;
                     this.dimensione = "large";
                     this.numero_patatine = 20;
                     break;
