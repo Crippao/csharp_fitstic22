@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fast-food-api", "fast-food-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fast_food", "fast_food\fast_food.csproj", "{9DD9A8FE-A8C4-413C-B373-87858AEB23F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastFood.Services", "FastFood.Services\FastFood.Services.csproj", "{44A894C0-571A-4F14-8CDD-FC6C7A44B907}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9DD9A8FE-A8C4-413C-B373-87858AEB23F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DD9A8FE-A8C4-413C-B373-87858AEB23F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DD9A8FE-A8C4-413C-B373-87858AEB23F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44A894C0-571A-4F14-8CDD-FC6C7A44B907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44A894C0-571A-4F14-8CDD-FC6C7A44B907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44A894C0-571A-4F14-8CDD-FC6C7A44B907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44A894C0-571A-4F14-8CDD-FC6C7A44B907}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
