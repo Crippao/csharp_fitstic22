@@ -17,6 +17,8 @@ namespace fast_food
             _articoloList.Add(articolo);
         }
 
+        public List<Articolo> Articoli { get => _articoloList; }
+
         public DateTime DataOra
         {
             get { return dataOra; }

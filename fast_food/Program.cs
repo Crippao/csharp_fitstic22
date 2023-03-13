@@ -7,15 +7,45 @@ namespace fast_food
         static List<Articolo> articoloList = new List<Articolo>();
 
         static void Main(string[] args)
-        {
-            Helper helper = new Helper();
+        {          
+            
             HelperPatatine helperPata = new HelperPatatine();
             HelperOrdine helperOrdine = new HelperOrdine();
+            HelperPanino helperPanino = new HelperPanino();
             long idIns;
 
-            helper.CreateConnection();
+            helperPata.CreateConnection();
+            helperPanino.CreateConnection();
+            helperOrdine.CreateConnection();
 
-            Ordina();
+            helperOrdine.CreateTable();
+            helperPanino.CreateTable();
+            helperPata.CreateTable();
+
+            Ordine ordine = Ordina();
+            
+            helperOrdine.Insert(ordine.DataOra, out idIns);
+
+            foreach (var articolo in ordine.Articoli)
+            {
+                if (articolo is Patatine p)
+                {
+                    helperPata.Insert(p, idIns);
+                } 
+
+                if (articolo is Panino pan)
+                {
+                    helperPanino.Insert(pan, idIns);
+                }
+
+                
+            }
+
+
+            
+            
+
+            
 
 
 
@@ -25,7 +55,7 @@ namespace fast_food
             //    int ID;                
 
             //helper.CreateTable();
-            //Console.WriteLine("Tabella creata");
+            //Console.WriteLine("Tabella creata");5
 
             //comandosql = SceltaComandoOrdine();
 
@@ -129,7 +159,7 @@ namespace fast_food
         static Ordine Ordina()
         {
             string? temp = "";
-            bool temp1;
+            bool temp1 = false;
             Articolo a;
             Ordine ordine = new Ordine();
 
@@ -142,56 +172,69 @@ namespace fast_food
                 temp = Scelta();
 
 
-                switch (temp)
-                {
-                    case "1":
-                        a = new Menu();
-                        break;
-
-                    case "2":
-                        a = new Panino();
-                        break;
-
-                    case "3":
-                        a = new Bibita();
-                        break;
-
-                    case "4":
-                        a = new Patatine();
-                        break;
-
-                    case "5":
-                        a = new Salsa();
-                        break;
-
-                    case "9":
-                        ordine.RiepilogoOrdini();
-                        continue;
-
-                    case "0":
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Grazie per aver ordinato da noi! Arrivederci :D");
-                        Console.ResetColor();
-                        return ordine;
-
-                    default:
-                        throw new Exception($"Valore {temp} inserito non corretto");
-                }
-
-
                 do
                 {
-                    ordine.AggiungiArticolo(a);
-                    temp1 = a.ChiediConferma("Vuoi ordinarne un'altro");
+                    switch (temp)
+                    {
+                        case "1":
+                        case "2":
+                        case "3":
+                        case "4":
+                        case "5":
+                            a = GetArticolo(temp);
+                            ordine.AggiungiArticolo(a);
+                            temp1 = a.ChiediConferma("Vuoi ordinarne un'altro");
+                            break;
+
+                        case "9":
+                            ordine.RiepilogoOrdini();
+                            continue;
+
+                        case "0":
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Grazie per aver ordinato da noi! Arrivederci :D");
+                            Console.ResetColor();
+                            return ordine;
+
+                        default:
+                            throw new Exception($"Valore {temp} inserito non corretto");
+                    }
                 } while (temp1);
 
-
-
-
-            } return ordine;
+                    
+            }
+            return ordine;
         }
 
+        static Articolo GetArticolo(string choice)
+        {
+            Articolo a;
 
+            switch (choice)
+            {
+                case "1":
+                    a = new Menu();
+                    break;
+
+                case "2":
+                    a = new Panino();
+                    break;
+
+                case "3":
+                    a = new Bibita();
+                    break;
+
+                case "4":
+                    a = new Patatine();
+                    break;
+
+                case "5":
+                    a = new Salsa();
+                    break;
+                default: throw new Exception();
+            }
+            return a;
+        }
 
         static string Scelta()
         {
@@ -215,9 +258,9 @@ namespace fast_food
             return temp;
         }
 
-        
 
-        
+
+
 
     }
 }

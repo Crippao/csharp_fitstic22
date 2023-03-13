@@ -7,17 +7,19 @@ using System.Threading.Tasks;
 
 namespace fast_food
 {
-    internal class HelperPatatine : Helper
+    internal class HelperPatatine : HelperArticolo
     {
-        public bool CreateTable()
+         public override bool CreateTable()
         {
+            base.CreateTable();
+
+
             string? create = @"CREATE TABLE if not exists Patatine (
                                         ID    INTEGER,
                                         DIMENSIONE STRING,
                                         NUM_PATATINE INTEGER,
-                                        ID_ORDINE INTEGER,                                                                                
-                                        PRIMARY KEY(ID AUTOINCREMENT),
-                                            FOREIGN KEY (ID_ORDINE) REFERENCES ORDINE (ID)                                            
+                                        PRIMARY KEY(ID),
+                                            FOREIGN KEY (ID) REFERENCES Articolo (ID)                                            
                                         );";
 
             return EseguiNonQuery(create);
@@ -77,8 +79,9 @@ namespace fast_food
 
         public bool Insert(Patatine p, long id_ordine)
         {
+            long pk = InsertArticolo(id_ordine);
             long id;
-            string? insert = $"INSERT INTO Patatine (DIMENSIONE, NUM_PATATINE, ID_ORDINE) VALUES ('{p.Dimensione}', {p.Numero_Patatine}, {id_ordine} ); ";
+            string? insert = $"INSERT INTO Patatine (ID, DIMENSIONE, NUM_PATATINE) VALUES ({pk},'{p.Dimensione}', {p.Numero_Patatine}) RETURNING *; ";
 
             return EseguiScalare(insert, out id);
         }
