@@ -11,7 +11,7 @@ using System.Reflection.PortableExecutable;
 namespace fast_food
 {
     public class HelperSQL
-    {       
+    {
         SQLiteConnection sqlite_conn;
         string? connectionString = "Data Source = fast_food.db; Version = 3; New = True; Compress = True;";
 
@@ -53,9 +53,11 @@ namespace fast_food
         }
 
 
-        protected IEnumerable<T>? ExecuteQuery<T>(string table, Func<IDataReader, T> projection /* Magia nera lascia perdere per ora*/) {
+        protected IEnumerable<T>? ExecuteQuery<T>(string table, Func<IDataReader, T> projection /* Magia nera lascia perdere per ora*/)
+        {
             //FIXME: We're vulnerable to SQLInjections
-            if (sqlite_conn.State != ConnectionState.Open) {
+            if (sqlite_conn.State != ConnectionState.Open)
+            {
                 yield break;
             }
 
@@ -64,7 +66,8 @@ namespace fast_food
 
             SQLiteDataReader dr = cmd.ExecuteReader();
 
-            while (dr.Read()) {
+            while (dr.Read())
+            {
                 // altra magia nera lascia stare
                 yield return projection(dr);
             }
@@ -72,10 +75,12 @@ namespace fast_food
         }
 
 
-        public List<Ordine> GetAllOrders() {
+        public List<Ordine> GetAllOrders()
+        {
 
             var l = new List<Ordine>();
-            if (sqlite_conn.State != ConnectionState.Open) {
+            if (sqlite_conn.State != ConnectionState.Open)
+            {
                 return l;
             }
 
@@ -84,8 +89,9 @@ namespace fast_food
 
             SQLiteDataReader dr = cmd.ExecuteReader();
 
-            while (dr.Read()) {
-                l.Add(new Ordine(dr.GetDateTime("DataOra"), dr.GetInt32("ID")));
+            while (dr.Read())
+            {
+                //l.Add(new Ordine(dr.GetDateTime("DataOra"), dr.GetInt32("ID")));
             }
 
             return l;
@@ -155,12 +161,14 @@ namespace fast_food
                                             REFERENCES Ordine (ID)
                                         );";
 
-            if (EseguiNonQuery(createTableOrdini))
-            {
-                return EseguiNonQuery(createTableArticoli);
+            string? createTableMenu = @"CREATE TABLE IF NOT EXISTS Menu (
+                                        ID INTEGER,
+                                        PRIMARY KEY (ID AUTOINCREMENT)
+                                        );";
 
-            }
-            else { return false; }
+
+            return EseguiNonQuery(createTableMenu);
+
 
         }
 

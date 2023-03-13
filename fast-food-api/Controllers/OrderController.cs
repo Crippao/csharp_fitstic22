@@ -36,15 +36,15 @@ public class OrderController : ControllerBase
         return Problem("Cannot complete the request");
     }
 
-    [HttpPost, Route("/initialize")]
-    public IActionResult Initialize() {
-        if (_helperSql.CreateTable()) {
-            return Ok();
-        }
+    //[HttpPost, Route("/initialize")]
+    //public IActionResult Initialize() {
+    //    if (_helperSql.CreateTable()) {
+    //        return Ok();
+    //    }
 
 
-        return Problem("There was an error managing your request");
-    }
+    //    return Problem("There was an error managing your request");
+    //}
 
     [HttpGet, Route("/")]
     public IActionResult Get() {
