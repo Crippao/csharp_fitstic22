@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace fast_food
 {
-    internal class HelperPatatine : HelperArticolo
+    internal class HelperBibita : HelperArticolo
     {
-         public override bool CreateTable()
+        public override bool CreateTable()
         {
             base.CreateTable();
 
 
-            string? create = @"CREATE TABLE if not exists Patatine (
+            string? create = @"CREATE TABLE if not exists Bibite (
                                         ID    INTEGER,
                                         DIMENSIONE STRING,
-                                        NUM_PATATINE INTEGER,
+                                        NUM_SORSI INTEGER,
                                         ID_ORDER INTEGER,
                                         PRIMARY KEY(ID),
                                             FOREIGN KEY (ID) REFERENCES Articoli (ID),
@@ -27,9 +27,9 @@ namespace fast_food
             return EseguiNonQuery(create);
         }
 
-        public Patatine? Get(long id)
+        public Bibita? Get(long id)
         {
-            string selectSql = $"SELECT * FROM Patatine WHERE id = {id};";
+            string selectSql = $"SELECT * FROM Bibite WHERE id = {id};";
 
             SQLiteDataReader? reader;
 
@@ -47,14 +47,14 @@ namespace fast_food
                         {
                             while (reader.Read())
                             {
-                                long id_pata = reader.GetInt64(0);
-                                string dim_pata = reader.GetString(1);
-                                int num_pata = reader.GetInt32(2);
+                                long id_bibita = reader.GetInt64(0);
+                                string dim_bibita = reader.GetString(1);
+                                int num_sorsi = reader.GetInt32(2);
                                 long id_ordine = reader.GetInt64(3);
 
-                                if (id_pata != 0)
+                                if (id_bibita != 0)
                                 {
-                                    return new Patatine(id_pata, dim_pata, num_pata, id_ordine);
+                                    return new Bibita(dim_bibita, num_sorsi);
                                 }
                                 else
                                 {
@@ -79,22 +79,22 @@ namespace fast_food
             else { return null; }
         }
 
-        public bool Insert(Patatine p, long id_ordine)
+        public bool Insert(Bibita b, long id_ordine)
         {
             long id_articolo;
-            long id_pata;
+            long id_bibita;
             long pk = InsertArticolo(id_ordine, out id_articolo);
-            
-            string? insert = $"INSERT INTO Patatine (ID, DIMENSIONE, NUM_PATATINE, ID_ORDER) VALUES ({id_articolo},'{p.Dimensione}', {p.Numero_Patatine}, {pk}) RETURNING *; ";
 
-            return EseguiScalare(insert, out id_pata);
+            string? insert = $"INSERT INTO Patatine (ID, DIMENSIONE, NUM_PATATINE, ID_ORDER) VALUES ({id_articolo},'{b.Dimensione}', {b.Numero_Sorsi}, {pk}) RETURNING *; ";
+
+            return EseguiScalare(insert, out id_bibita);
         }
 
-        public bool Update(Patatine p, long id_ordine, long id)
+        public bool Update(Bibita b, long id_ordine, long id)
         {
-            
-            string? update = @$"UPDATE Patatine SET Dimensione = '{p.Dimensione}',
-                                                SET NUM_PATATINE = {p.Numero_Patatine},
+
+            string? update = @$"UPDATE Bibite SET Dimensione = '{b.Dimensione}',
+                                                SET NUM_PATATINE = {b.Numero_Sorsi},
                                                 SET ID_ORDINE = {id_ordine}
                                                 WHERE ID = {id}";
 
@@ -103,16 +103,16 @@ namespace fast_food
 
         public bool Delete(int id)
         {
-            string? deleteOneSQL = $"DELETE FROM Patatine WHERE ID = {id}";
+            string? deleteOneSQL = $"DELETE FROM Bibite WHERE ID = {id}";
 
             return EseguiNonQuery(deleteOneSQL);
         }
 
-        public List<Patatine> GetAll()
+        public List<Bibita> GetAll()
         {
-            List<Patatine> listaPatatine = new List<Patatine>();
+            List<Bibita> listaBibite = new List<Bibita>();
 
-            string selectSql = $"SELECT * FROM Patatine;";
+            string selectSql = $"SELECT * FROM Bibite;";
 
             SQLiteDataReader? reader;
 
@@ -124,14 +124,14 @@ namespace fast_food
                     {
                         while (reader.Read())
                         {
-                            long id_pata = reader.GetInt64(0);
-                            string dim_pata = reader.GetString(1);
-                            int num_pata = reader.GetInt32(2);
+                            long id_bibita = reader.GetInt64(0);
+                            string dim_bibita = reader.GetString(1);
+                            int num_sorsi = reader.GetInt32(2);
                             long id_ordine = reader.GetInt64(3);
 
-                            if (id_pata != 0)
+                            if (id_bibita != 0)
                             {
-                                listaPatatine.Add(new Patatine(id_pata, dim_pata, num_pata, id_ordine));
+                                listaBibite.Add(new Bibita(dim_bibita, num_sorsi));
                             }
                         }
                     }
@@ -139,7 +139,7 @@ namespace fast_food
                 }
 
             }
-            return listaPatatine;
+            return listaBibite;
         }
     }
 }

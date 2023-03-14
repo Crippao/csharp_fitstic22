@@ -19,7 +19,7 @@ namespace fast_food
             set { dimensione = value; }
         }
 
-        private int Numero_Sorsi
+        public int Numero_Sorsi
         {
             get { return numero_sorsi; }
             set { numero_sorsi = value; }

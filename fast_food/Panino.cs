@@ -12,8 +12,7 @@ namespace fast_food
         private bool pane;
         private bool carne;
         private bool formaggio;
-        private bool salsa;
-        private int numero_morsi;
+        private bool salsa;        
 
         public bool InMenu
         {
@@ -43,25 +42,15 @@ namespace fast_food
         {
             get { return salsa; }
             set { salsa = value; }
-        }
+        }        
 
-        private int Numero_morsi
+        public Panino(bool p = true, bool c = true, bool f = true, bool s = true, bool inMenu = false)
         {
-            get { return numero_morsi; }
-            set { numero_morsi = value;}
-        }
-        //public Panino(bool inMenu)
-        //{
-        //    this.inMenu = inMenu;
-        //}
-
-        public Panino(bool p = true, bool c = true, bool f = true, bool s = true, int n_m = 10, bool inMenu = false)
-        {
+            
             this.pane = p;
             this.carne = c;
             this.formaggio = f;
-            this.salsa = s;
-            this.numero_morsi = n_m;
+            this.salsa = s;            
             this.inMenu = inMenu;
         }
 
@@ -198,15 +187,15 @@ namespace fast_food
             }
             else { panino[3] = "no salsa"; }
 
-            
+
             if (inMenu == true)
             {
-                riepilogo = $"panino con { String.Join(", ", panino)}";
+                riepilogo = $"panino con {String.Join(", ", panino)}";
             }
             else
             {
                 riepilogo = $"Hai ordinato un panino con: {String.Join(", ", panino)}";
-            }           
+            }
 
             return riepilogo;
         }

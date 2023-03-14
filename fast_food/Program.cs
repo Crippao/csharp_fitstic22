@@ -12,15 +12,18 @@ namespace fast_food
             HelperPatatine helperPata = new HelperPatatine();
             HelperOrdine helperOrdine = new HelperOrdine();
             HelperPanino helperPanino = new HelperPanino();
+            HelperBibita helperBibita = new HelperBibita();
             long idIns;
 
             helperPata.CreateConnection();
             helperPanino.CreateConnection();
             helperOrdine.CreateConnection();
+            helperBibita.CreateConnection();
 
             helperOrdine.CreateTable();
             helperPanino.CreateTable();
             helperPata.CreateTable();
+            helperBibita.CreateTable();
 
             Ordine ordine = Ordina();
             
@@ -29,13 +32,18 @@ namespace fast_food
             foreach (var articolo in ordine.Articoli)
             {
                 if (articolo is Patatine p)
-                {
+                {                    
                     helperPata.Insert(p, idIns);
                 } 
 
                 if (articolo is Panino pan)
                 {
                     helperPanino.Insert(pan, idIns);
+                }
+
+                if (articolo is Bibita bibita)
+                {
+                    helperBibita.Insert(bibita, idIns);
                 }
 
                 

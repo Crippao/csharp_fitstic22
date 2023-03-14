@@ -17,9 +17,11 @@ namespace fast_food
                                         PANE INTEGER,
                                         CARNE INTEGER,
                                         FORMAGGIO INTEGER,
-                                        SALSA INTEGER,                                        
+                                        SALSA INTEGER,
+                                        ID_ORDER INTEGER,
                                         PRIMARY KEY(ID)
-                                            FOREIGN KEY (ID) REFERENCES Ordini (ID)
+                                            FOREIGN KEY (ID) REFERENCES Articoli (ID),
+                                            FOREIGN KEY (ID_ORDER) REFERENCES Ordini (ID)
                                         );";
 
             return EseguiNonQuery(createTable);
@@ -27,11 +29,12 @@ namespace fast_food
 
         public bool Insert(Panino p, long id_ordine)
         {
-            long pk = InsertArticolo(id_ordine);
-            long id;
-            string? insert = $"INSERT INTO Panini (ID, PANE, CARNE, FORMAGGIO, SALSA) VALUES ({pk},'{p.Pane}', {p.Carne}, {p.Formaggio}, {p.Salsa}) RETURNING *; ";
+            long id_articolo;
+            long pk = InsertArticolo(id_ordine, out id_articolo);
+            long id_panino;
+            string? insert = $"INSERT INTO Panini (ID, PANE, CARNE, FORMAGGIO, SALSA) VALUES ({id_articolo},'{p.Pane}', {p.Carne}, {p.Formaggio}, {p.Salsa}, {pk}) RETURNING *; ";
 
-            return EseguiScalare(insert, out id);
+            return EseguiScalare(insert, out id_panino);
         }
 
         public bool Delete(int id)
@@ -48,9 +51,9 @@ namespace fast_food
             return EseguiNonQuery(updateSQL);
         }
 
-        public Ordine? Get(long id)
+        public Panino? Get(long id)
         {
-            string selectSql = $"SELECT * FROM Panino WHERE id = {id};";
+            string selectSql = $"SELECT * FROM Panini WHERE id = {id};";
 
             SQLiteDataReader? reader;
 
@@ -69,17 +72,19 @@ namespace fast_food
                             while (reader.Read())
                             {
                                 long idPanino = reader.GetInt64(0);
+                                bool pane = reader.GetBoolean(1);
+                                bool carne = reader.GetBoolean(2);
+                                bool formaggio = reader.GetBoolean(3);
+                                bool salsa = reader.GetBoolean(4);
 
-
-                               
-                                //if (DateTime.TryParse(reader.GetString(1), out dt))
-                                //{
-                                //    //return new Panino(idPanino, dt);
-                                //}
-                                //else
-                                //{
-                                //    return null;
-                                //}
+                                if (idPanino != 0)
+                                {
+                                    return new Panino(pane, carne, formaggio, salsa);
+                                }
+                                else
+                                {
+                                    return null;
+                                }
                             }
                         }
                         else
@@ -97,6 +102,41 @@ namespace fast_food
 
             }
             else { return null; }
+        }
+
+        public List<Panino> GetAll()
+        {
+            List<Panino> listaPanini = new List<Panino>();
+
+            string selectSql = $"SELECT * FROM Panini;";
+
+            SQLiteDataReader? reader;
+
+            if (EseguiReader(selectSql, out reader))
+            {
+                if (reader != null)
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            long idPanino = reader.GetInt64(0);
+                            bool pane = reader.GetBoolean(1);
+                            bool carne = reader.GetBoolean(2);
+                            bool formaggio = reader.GetBoolean(3);
+                            bool salsa = reader.GetBoolean(4);
+
+                            if (idPanino != 0)
+                            {
+                                listaPanini.Add(new Panino(idPanino, pane, carne, formaggio, salsa));
+                            }
+                        }
+                    }
+
+                }
+
+            }
+            return listaPanini;
         }
     }
 }

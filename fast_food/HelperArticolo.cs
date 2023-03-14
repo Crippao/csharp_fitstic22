@@ -21,9 +21,8 @@ namespace fast_food
             return EseguiNonQuery(createTable);
         }
 
-        public long InsertArticolo(long id_ordine)
-        {
-            long id;
+        public long InsertArticolo(long id_ordine, out long id)
+        {            
             string? insert = $"INSERT INTO Articolo (ID_ORDER) VALUES ({id_ordine}) RETURNING *;";
 
             EseguiScalare(insert, out id);
@@ -31,57 +30,57 @@ namespace fast_food
             
         }
 
-        //public Ordine? Get(long id)
-        //{
-        //    string selectSql = $"SELECT * FROM Articolo WHERE id = {id};";
+        public Ordine? Get(long id)
+        {
+            string selectSql = $"SELECT * FROM Articolo WHERE id = {id};";
 
-        //    SQLiteDataReader? reader;
+            SQLiteDataReader? reader;
 
-        //    if (EseguiReader(selectSql, out reader))
-        //    {
-        //        if (EseguiReader(selectSql, out reader))
-        //        {
-        //            if (reader == null)
-        //            {
-        //                return null;
-        //            }
-        //            else
-        //            {
-        //                if (reader.HasRows)
-        //                {
-        //                    while (reader.Read())
-        //                    {
-        //                        long id_Art = reader.GetInt64(0);
-        //                        string type = reader.GetString(1);
-        //                        string description = reader.GetString(2);
-        //                        long id_order = reader.GetInt64(3);
-
-
-        //                        if (id_Art != 0)
-        //                        {
-        //                            return new Articolo();
-        //                        }
-        //                        else
-        //                        {
-        //                            return null;
-        //                        }
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    return null;
-        //                }
-        //            }
-        //            return null;
-        //        }
-        //        else
-        //        {
-        //            return null;
-        //        }
+            if (EseguiReader(selectSql, out reader))
+            {
+                if (EseguiReader(selectSql, out reader))
+                {
+                    if (reader == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                long id_Art = reader.GetInt64(0);
+                                string type = reader.GetString(1);
+                                string description = reader.GetString(2);
+                                long id_order = reader.GetInt64(3);
 
 
-        //    }
-        //    else { return null; }
-        //}
+                                if (id_Art != 0)
+                                {
+                                    return new Articolo();
+                                }
+                                else
+                                {
+                                    return null;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                    return null;
+                }
+                else
+                {
+                    return null;
+                }
+
+
+            }
+            else { return null; }
+        }
     }
 }
