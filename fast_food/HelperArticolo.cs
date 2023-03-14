@@ -21,12 +21,13 @@ namespace fast_food
             return EseguiNonQuery(createTable);
         }
 
-        public long InsertArticolo(long id_ordine, out long id)
-        {            
-            string? insert = $"INSERT INTO Articolo (ID_ORDER) VALUES ({id_ordine}) RETURNING *;";
+        public long InsertArticolo(long id_ordine)
+        {
+            long id_articolo;
+            string? insert = $"INSERT INTO Articolo (ID_ORDER) VALUES ({id_ordine}) RETURNING *;";            
 
-            EseguiScalare(insert, out id);
-            return id;
+            EseguiScalare(insert, out id_articolo);
+            return id_articolo;
             
         }
 

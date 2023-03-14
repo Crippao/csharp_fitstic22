@@ -80,12 +80,11 @@ namespace fast_food
         }
 
         public bool Insert(Bibita b, long id_ordine)
-        {
-            long id_articolo;
+        {            
             long id_bibita;
-            long pk = InsertArticolo(id_ordine, out id_articolo);
+            long pk = InsertArticolo(id_ordine);
 
-            string? insert = $"INSERT INTO Patatine (ID, DIMENSIONE, NUM_PATATINE, ID_ORDER) VALUES ({id_articolo},'{b.Dimensione}', {b.Numero_Sorsi}, {pk}) RETURNING *; ";
+            string? insert = $"INSERT INTO Patatine (ID, DIMENSIONE, NUM_PATATINE, ID_ORDER) VALUES ({pk},'{b.Dimensione}', {b.Numero_Sorsi}, {id_ordine}) RETURNING *; ";
 
             return EseguiScalare(insert, out id_bibita);
         }

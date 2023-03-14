@@ -25,67 +25,14 @@ namespace fast_food
                                         );";
 
             return EseguiNonQuery(create);
-        }
-
-        public Patatine? Get(long id)
-        {
-            string selectSql = $"SELECT * FROM Patatine WHERE id = {id};";
-
-            SQLiteDataReader? reader;
-
-            if (EseguiReader(selectSql, out reader))
-            {
-                if (EseguiReader(selectSql, out reader))
-                {
-                    if (reader == null)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                long id_pata = reader.GetInt64(0);
-                                string dim_pata = reader.GetString(1);
-                                int num_pata = reader.GetInt32(2);
-                                long id_ordine = reader.GetInt64(3);
-
-                                if (id_pata != 0)
-                                {
-                                    return new Patatine(id_pata, dim_pata, num_pata, id_ordine);
-                                }
-                                else
-                                {
-                                    return null;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            return null;
-                        }
-                    }
-                    return null;
-                }
-                else
-                {
-                    return null;
-                }
-
-
-            }
-            else { return null; }
-        }
+        }        
 
         public bool Insert(Patatine p, long id_ordine)
         {
-            long id_articolo;
             long id_pata;
-            long pk = InsertArticolo(id_ordine, out id_articolo);
+            long pk = InsertArticolo(id_ordine);
             
-            string? insert = $"INSERT INTO Patatine (ID, DIMENSIONE, NUM_PATATINE, ID_ORDER) VALUES ({id_articolo},'{p.Dimensione}', {p.Numero_Patatine}, {pk}) RETURNING *; ";
+            string? insert = $"INSERT INTO Patatine (ID, DIMENSIONE, NUM_PATATINE, ID_ORDER) VALUES ({pk},'{p.Dimensione}', {p.Numero_Patatine}, {id_ordine}) RETURNING *; ";
 
             return EseguiScalare(insert, out id_pata);
         }
@@ -140,6 +87,58 @@ namespace fast_food
 
             }
             return listaPatatine;
+        }
+
+        public Patatine? Get(long id)
+        {
+            string selectSql = $"SELECT * FROM Patatine WHERE id = {id};";
+
+            SQLiteDataReader? reader;
+
+            if (EseguiReader(selectSql, out reader))
+            {
+                if (EseguiReader(selectSql, out reader))
+                {
+                    if (reader == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                long id_pata = reader.GetInt64(0);
+                                string dim_pata = reader.GetString(1);
+                                int num_pata = reader.GetInt32(2);
+                                long id_ordine = reader.GetInt64(3);
+
+                                if (id_pata != 0)
+                                {
+                                    return new Patatine(id_pata, dim_pata, num_pata, id_ordine);
+                                }
+                                else
+                                {
+                                    return null;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                    return null;
+                }
+                else
+                {
+                    return null;
+                }
+
+
+            }
+            else { return null; }
         }
     }
 }

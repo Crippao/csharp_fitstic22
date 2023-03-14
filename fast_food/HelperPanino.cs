@@ -29,10 +29,9 @@ namespace fast_food
 
         public bool Insert(Panino p, long id_ordine)
         {
-            long id_articolo;
-            long pk = InsertArticolo(id_ordine, out id_articolo);
+            long pk = InsertArticolo(id_ordine);
             long id_panino;
-            string? insert = $"INSERT INTO Panini (ID, PANE, CARNE, FORMAGGIO, SALSA) VALUES ({id_articolo},'{p.Pane}', {p.Carne}, {p.Formaggio}, {p.Salsa}, {pk}) RETURNING *; ";
+            string? insert = $"INSERT INTO Panini (ID, PANE, CARNE, FORMAGGIO, SALSA) VALUES ({pk},'{p.Pane}', {p.Carne}, {p.Formaggio}, {p.Salsa}, {id_ordine}) RETURNING *; ";
 
             return EseguiScalare(insert, out id_panino);
         }
